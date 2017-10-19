@@ -51,22 +51,26 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
 
     @Override
     public void onBindViewHolder(MovieAdapter.ViewHolder holder, int position) {
-        Movie movie=movies.get(position);
-        holder.tvTitle.setText(movie.getTitle());
-        holder.tvOverView.setText(movie.getOverview());
+
+        Movie movie = movies.get(position);
+        holder.tvtitle.setText(movie.getTitle());
+        holder.tvOverview.setText(movie.getOverview());
+
         boolean isPortrait=context.getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT;
         String imageUrl=null;
 
         if (isPortrait)
         {
-            imageUrl=config.getImageUrl(config.getPosterSize(),movie.getPosterPath());
+            imageUrl=config.getImageUrl(config.getPosterSize(),movie.getPosterpath());
         }
         else {
                 imageUrl=config.getImageUrl(config.getBackdropSize(), movie.getBackdropPath());
         }
 
+
+
         int placeholderId=isPortrait? R.drawable.flicks_movie_placeholder: R.drawable.flicks_backdrop_placeholder;
-        ImageView imageView=isPortrait ? holder.ivMovie: holder.ivBackdropImage;
+        ImageView imageView=isPortrait ? holder.ivPosterImage: holder.ivBackdropImage;
 
         Glide.with(context).load(imageUrl).bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
                 .placeholder(placeholderId)
@@ -80,18 +84,17 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
 
     public  static class  ViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView ivMovie;
+        ImageView ivPosterImage;
         ImageView ivBackdropImage;
-        TextView tvTitle;
-        TextView tvOverView;
-
+        TextView tvtitle;
+        TextView tvOverview;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ivMovie=(ImageView)itemView.findViewById(R.id.ivPosterImage);
-            ivBackdropImage=(ImageView)itemView.findViewById(R.id.ivBackdropimage);
-            tvTitle=(TextView)itemView.findViewById(R.id.tvTitle);
-            tvOverView=(TextView)itemView.findViewById(R.id.tvOverView);
+            ivPosterImage = (ImageView)itemView.findViewById(R.id.ivPosterImage);
+            //ivBackdropImage= (ImageView)itemView.findViewById(R.id.ivBackdropImage);
+            tvOverview = (TextView) itemView.findViewById(R.id.tvOverview);
+            tvtitle = (TextView) itemView.findViewById(R.id.tvTitle);
         }
     }
 }
